@@ -1,9 +1,15 @@
 package org.example.model;
+import lombok.Getter;
 
 public sealed abstract class Animal permits Dog,Cat,Bird {
+
+    @Getter
     private final AnimalId id;
+    @Getter
     private String name;
+    @Getter
     private int age;
+    @Getter
     private AdoptionStatus adoptionStatus;
 
     protected Animal(AnimalId id, String name, int age) {
@@ -11,22 +17,6 @@ public sealed abstract class Animal permits Dog,Cat,Bird {
         this.name = name;
         this.age = age;
         this.adoptionStatus = AdoptionStatus.AVAILABLE;
-    }
-
-    public AnimalId getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public AdoptionStatus getAdoptionStatus() {
-        return adoptionStatus;
     }
 
     public void markAsAdopted(){

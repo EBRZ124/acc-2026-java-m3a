@@ -4,6 +4,7 @@ import java.util.UUID;
 
 public final class AnimalId {
     private final String value;
+
     public AnimalId(){
         this.value = UUID.randomUUID().toString();
     }

@@ -1,8 +1,13 @@
 package org.example.model;
 
 public final class Dog extends Animal{
+
     public Dog(AnimalId id, String name, int age){
         super(id,name,age);
+    }
+
+    public Dog(String name, int age){
+        this(new AnimalId(), name, age);
     }
 
     @Override
