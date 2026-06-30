@@ -1,7 +1,7 @@
 package org.example.model;
 import lombok.Getter;
 
-public sealed abstract class Animal permits Dog,Cat,Bird {
+public sealed abstract class Animal permits Dog,Cat,Bird,Tiger {
 
     @Getter
     private final AnimalId id;

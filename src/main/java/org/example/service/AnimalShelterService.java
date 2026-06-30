@@ -16,26 +16,58 @@ public class AnimalShelterService {
         this.shelter = shelter;
     }
 
-    public void addAnimal() {
-        System.out.println("Enter species (dog, cat, or bird): ");
-        String species = scanner.nextLine().trim();
-
-        System.out.println("Enter the animals name: ");
-        String name = scanner.nextLine().trim();
-
-        System.out.println("Enter " + name + "s age: ");
-        int age;
-        try {
-            age = Integer.parseInt(scanner.nextLine().trim());
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid age, aborting.");
-            return;
+    private String validateInputSpecies() {
+        List<String> allowedSpecies = List.of("dog", "cat", "bird", "tiger");
+        String species;
+        while (true){
+            System.out.print("Enter species (dog, cat, bird, tiger): ");
+            species = scanner.nextLine().trim().toLowerCase();
+            if (allowedSpecies.contains(species)) {
+                return species;
+            }
+            System.out.print("Invalid species. Only the given ones are allowed. ");
         }
+    }
+    private String validateInputName() {
+        String name;
+        while (true){
+            System.out.print("Enter the animal's name: ");
+            name = scanner.nextLine().trim();
+            if(!name.isEmpty()){
+                return name;
+            }
+            System.out.print("The name can not be empty! ");
+        }
+    }
+
+    private int validateInputAge(String animalsName) {
+        while (true){
+            System.out.print("Enter " +animalsName+"s age: ");
+            String input = scanner.nextLine().trim();
+            try{
+                int age = Integer.parseInt(input);
+                if (age < 0){
+                    System.out.println("Age can not be negative.");
+                    continue;
+                }
+                return age;
+            } catch (NumberFormatException e){
+                System.out.print("Not a valid age number! ");
+            }
+        }
+    }
+
+    public void addAnimal() {
+        String species = validateInputSpecies();
+        String name = validateInputName();
+        int age = validateInputAge(name);
 
         Animal animal = switch (species.toLowerCase()){
             case "dog" -> new Dog(new AnimalId(), name, age);
             case "cat" -> new Cat(new AnimalId(), name, age);
             case "bird" -> new Bird(new AnimalId(), name, age);
+            case "tiger" -> new Tiger(new AnimalId(), name, age);
+
             default -> null;
         };
 
